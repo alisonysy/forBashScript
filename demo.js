@@ -4,7 +4,10 @@ var fs = require('fs')
 
 var dirName = process.argv[2]
 
-if (typeof dirName === "undefined") {
+if (fs.existsSync(dirName)) {
+ console.log("failed, because dir exists")
+  process.exit(1);
+}else { 
   fs.mkdirSync("./" + dirName);
   process.chdir("./" + dirName);
   fs.mkdirSync("./css");
@@ -14,9 +17,7 @@ if (typeof dirName === "undefined") {
   fs.writeFileSync("./css/style.css","h1{color: red;}");
   fs.writeFileSync("js/main.js","var string = 'Hello World';   alert(string)");
   
+  console.log("success");
   process.exit(0);
-}else {
-  alert("faied, because dir exists");
-  process.exit(1);
 }
 
